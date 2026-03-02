@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project 3rd Qrt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+    background-image: url(https://i.pinimg.com/originals/6b/fc/3c/6bfc3c650c24d1cc9d5214964303c06d.gif);
+    background-size: 1300px;
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(240, 145, 243);
+    padding-top: 80px;
+}
+
+.navbar {
+    width: 100%;
+    background: #662958;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+  .nav-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+}
+
+.container{
+    background: rgba(121, 72, 122, 0.85);
+    padding: 30px;
+    border-radius: 15px;
+    width: 600px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+
+.compute-btn{
+    padding: 8px 15px;
+    border: 3px dotted;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    background: #a46a9d;
+    font-weight: bold;
+    color: rgb(240, 145, 243);
+}
+
+/* FARE BOX */
+.fare-box{
+    background: rgb(147, 100, 139);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 25px;
+    border: 3px dotted;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #b36d99;
+}
+</style>
+</head>
+
+<body>
+
+
+ <nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#"><img src="C:\Users\Kailey Cassidy\Downloads\Untitled design (7).jpg" style="height: 50px;"></a>
+    
+    
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mynavbar">
+
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"> 
+          <a class="nav-link" href="index.html">Home/KMGride</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="registration.html">KMG Registration</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="text" placeholder="Search">
+        <button class="btn btn-light" type="button">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome to KMGride 🚗</h1>
+    <p>
+        Your reliable Motorcycle Taxi Fare Guide.
+        Easily compute your ride fare based on distance in kilometers.
+    </p>
+
+    <button class="compute-btn"
+        onclick="document.getElementById('fareSection').scrollIntoView({behavior:'smooth'});">
+        Go to Fare Calculator
+    </button>
+</div>
+
+
+<div class="container" id="fareSection">
+    <h2>KMGride Fare</h2>
+
+    <h4>Pick-Up Location (kilometers)</h4>
+    <input type="number" id="PickUp" placeholder="Enter pickup KM">
+
+    <h4>Drop-Off Location (kilometers)</h4>
+    <input type="number" id="DropOff" placeholder="Enter dropoff KM">
+
+    <br>
+    <input type="checkbox" id="disc"> Apply 20% Discount
+    <br>
+
+    <button class="compute-btn" onclick="calculateFare()">Compute Fare</button>
+
+    <div class="fare-box">
+        Fare: <span id="displayAns">₱ 0.00</span>
+    </div>
+</div>
+
+<script>
+
+function calculateFare(){
+
+let PickUp, DropOff, basefare, baseKM, perKMrate, distance, extraKM, discount;
+
+PickUp = parseFloat(document.getElementById("PickUp").value);
+DropOff = parseFloat(document.getElementById("DropOff").value);
+
+basefare = 50;        // minimum fare
+perKMrate = 15;       // per kilometer rate
+baseKM = 5;           // kilometers included in base fare
+
+discount = document.getElementById("disc").checked;
+
+// Calculate distance in kilometers
+distance = Math.max(Math.abs(DropOff - PickUp), 0);
+
+// Extra kilometers beyond baseKM
+extraKM = Math.max(distance - baseKM, 0);
+
+// Compute fare
+let fare = basefare + extraKM * perKMrate;
+
+// Apply 20% discount if checked
+fare = fare * (1 - 0.2 * discount);
+
+// Display result
+document.getElementById("displayAns").innerHTML =
+"₱ " + fare.toFixed(2);
+}
+</script>
+
+<footer>
+© 2026 KMGride Registration | All Rights Reserved
+</footer>
+
+</body>
+</html>
